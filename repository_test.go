@@ -3005,6 +3005,11 @@ func (s *RepositorySuite) TestBrokenMultipleShallowFetch(c *C) {
 	c.Assert(err, IsNil)
 }
 
+func (s *RepositorySuite) TestDotGitToOSFilesystemsInvalidPath(c *C) {
+	_, _, err := dotGitToOSFilesystems("\000", false)
+	c.Assert(err, NotNil)
+}
+
 func BenchmarkObjects(b *testing.B) {
 	defer fixtures.Clean()
 
