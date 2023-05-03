@@ -1077,6 +1077,14 @@ func (s *RepositorySuite) TestCloneConfig(c *C) {
 }
 
 func (s *RepositorySuite) TestCloneSingleBranchAndNonHEAD(c *C) {
+	s.testCloneSingleBranchAndNonHEADReference(c, "refs/heads/branch")
+}
+
+func (s *RepositorySuite) TestCloneSingleBranchAndNonHEADAndNonFull(c *C) {
+	s.testCloneSingleBranchAndNonHEADReference(c, "branch")
+}
+
+func (s *RepositorySuite) testCloneSingleBranchAndNonHEADReference(c *C, ref string) {
 	r, _ := Init(memory.NewStorage(), nil)
 
 	head, err := r.Head()
@@ -1085,7 +1093,7 @@ func (s *RepositorySuite) TestCloneSingleBranchAndNonHEAD(c *C) {
 
 	err = r.clone(context.Background(), &CloneOptions{
 		URL:           s.GetBasicLocalRepositoryURL(),
-		ReferenceName: plumbing.ReferenceName("refs/heads/branch"),
+		ReferenceName: plumbing.ReferenceName(ref),
 		SingleBranch:  true,
 	})
 
