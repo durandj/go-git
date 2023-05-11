@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	stdioutil "io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -574,7 +573,7 @@ func (w *Worktree) checkoutFileSymlink(f *object.File) (err error) {
 
 	defer ioutil.CheckClose(from, &err)
 
-	bytes, err := stdioutil.ReadAll(from)
+	bytes, err := io.ReadAll(from)
 	if err != nil {
 		return
 	}
@@ -723,7 +722,7 @@ func (w *Worktree) readGitmodulesFile() (*config.Modules, error) {
 	}
 
 	defer f.Close()
-	input, err := stdioutil.ReadAll(f)
+	input, err := io.ReadAll(f)
 	if err != nil {
 		return nil, err
 	}
