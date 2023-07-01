@@ -894,7 +894,7 @@ func (r *Repository) Worktrees() ([]*Worktree, error) {
 		}
 		defer f.Close()
 
-		b, err := stdioutil.ReadAll(f)
+		b, err := io.ReadAll(f)
 		if err != nil {
 			return nil, err
 		}
